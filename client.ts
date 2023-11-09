@@ -1,6 +1,5 @@
 import net from "node:net";
 import dotenv from "dotenv";
-import {moduloUno} from "./controller/controller";
 dotenv.config();
 const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 8080;
 const host = process.env.HOST || "127.0.0.1";

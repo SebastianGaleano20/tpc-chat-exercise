@@ -1,6 +1,13 @@
 import net from "node:net";
 import dotenv from "dotenv";
-import { moduloUno, moduloDos, moduloTres } from "./controller/controller";
+import {
+  moduloUno,
+  moduloDos,
+  moduloTres,
+  moduloCuatro,
+  moduloCinco,
+} from "./controller/controller";
+import { type } from "node:os";
 
 dotenv.config();
 
@@ -25,17 +32,22 @@ serverTCP.on("connection", (socket) => {
       const n = Number(r[1]);
       const potencia = moduloDos(n);
       socket.write(JSON.stringify(potencia));
-    }else if(r[0] === "moduloTres" && r.length > 1) {
-      const nums:number[] = r.splice(1);
-      const numeros:number[] = nums.map(function(num){
-        return +num;
-      });
-      console.log(numeros);
-      const suma = moduloTres(numeros);
-      socket.write(JSON.stringify(suma));
-    }
-     else {
-    //  console.log(r[1], "En el else");
+    } else if (r[0] === "moduloTres") {
+      if (r[1].startsWith("[") && r[1].endsWith("]")) {
+        const array = JSON.parse(r[1]);
+        const suma = moduloTres(array);
+        socket.write(JSON.stringify(suma));
+      } else {
+        socket.write(JSON.stringify("Petición incorrecta"));
+      }
+    } else if (r[0] === "moduloCuatro" && typeof r[1] === "string") {
+      const resultado = moduloCuatro(r[1]);
+      socket.write(JSON.stringify(resultado));
+    } else if (r[0] === "moduloCinco" && r.length === 2) {
+      const arrayOrdenado = moduloCinco(r[1]);
+      socket.write(JSON.stringify(arrayOrdenado));
+    } else {
+      //  console.log(r[1], "En el else");
       socket.write(JSON.stringify("Petición incorrecta"));
     }
   });
