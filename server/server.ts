@@ -9,7 +9,7 @@ import {
   moduloSeis,
   moduloSiete,
   moduloOcho,
-} from "./controller/controller";
+} from "../controller/controller";
 
 dotenv.config();
 
