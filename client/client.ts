@@ -20,9 +20,9 @@ clientTCP.on("connect", () =>{
   //      clientTCP.end();}, 5000);
 });
 
-clientTCP.on("data",(data) =>{
-    const stringResponse = data.toString();
-    const response = JSON.parse(stringResponse);
-    console.log(response);
-    clientTCP.end();
+clientTCP.on("data", (data) => {
+  const stringResponse = data.toString();
+  const response = JSON.parse(stringResponse);
+  console.log("Respuesta del servidor: ", response);
+  clientTCP.end();
 });

@@ -6,8 +6,10 @@ import {
   moduloTres,
   moduloCuatro,
   moduloCinco,
+  moduloSeis,
+  moduloSiete,
+  moduloOcho,
 } from "./controller/controller";
-import { type } from "node:os";
 
 dotenv.config();
 
@@ -28,7 +30,6 @@ serverTCP.on("connection", (socket) => {
       const suma = moduloUno(n1, n2);
       socket.write(JSON.stringify(suma));
     } else if (r[0] === "moduloDos" && Number(r[1])) {
-      console.log(Number(r[1]), "Dentro del if");
       const n = Number(r[1]);
       const potencia = moduloDos(n);
       socket.write(JSON.stringify(potencia));
@@ -46,8 +47,27 @@ serverTCP.on("connection", (socket) => {
     } else if (r[0] === "moduloCinco" && r.length === 2) {
       const arrayOrdenado = moduloCinco(r[1]);
       socket.write(JSON.stringify(arrayOrdenado));
+    } else if (
+      r[0] === "moduloSeis" &&
+      r[1].startsWith("[") &&
+      r[1].endsWith("]")
+    ) {
+      const Array = JSON.parse(r[1]);
+      const primerElementoDelArray = moduloSeis(Array);
+      socket.write(JSON.stringify(primerElementoDelArray));
+    } else if (r[0] === "moduloSiete") {
+      const num = Number(r[1]);
+      const resultadoFactorial = moduloSiete(num);
+      socket.write(JSON.stringify(resultadoFactorial));
+    } else if (r[0] === "moduloOcho") {
+      //if (r[1].startsWith("{") && r[1].endsWith("}")){
+      const entidad = r;
+      const objeto = entidad.splice(1);
+      console.log(objeto);
+      //const propiedadesYValores = moduloOcho(entidad);
+      //}else{
+      //  socket.write(JSON.stringify("Petición incorrecta"));
     } else {
-      //  console.log(r[1], "En el else");
       socket.write(JSON.stringify("Petición incorrecta"));
     }
   });

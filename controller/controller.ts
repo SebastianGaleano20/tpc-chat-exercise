@@ -1,3 +1,7 @@
+/*
+'{"nombre": "gabriel", "apellido":"alberini"}' en terminal o [] para que funcione
+*/
+
 const moduloUno = (n1: number, n2: number): number => {
   return n1 + n2;
 };
@@ -32,4 +36,21 @@ const moduloCinco = (string: string): string[] => {
   return arrayOrdenado;
 };
 
-export { moduloUno, moduloDos, moduloTres, moduloCuatro, moduloCinco };
+const moduloSeis = (array:any[]):string=> {
+  return array[0];
+}
+const moduloSiete = (n:number):number => {
+  if(n === 0){
+   return 1;
+  }
+  let resultado:number = 1;
+  for ( let i:number = 1; i <= n; i++){
+    resultado *= i;
+  } 
+  return resultado;
+}
+
+const moduloOcho = (obj:object):object =>{
+    return obj;
+}
+export { moduloUno, moduloDos, moduloTres, moduloCuatro, moduloCinco, moduloSeis, moduloSiete, moduloOcho };
